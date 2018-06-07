@@ -1,8 +1,9 @@
 # mpvue-components
 
-> mpvue components
+[x] 基础构建
+[ ] 时间日期选择器
 
-## Build Setup
+## 构建
 
 ``` bash
 # install dependencies
