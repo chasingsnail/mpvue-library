@@ -1,6 +1,7 @@
 # mpvue-components
 
 - [x] 时间日期选择器
+- [x] 图表（Echarts）
 
 ## 构建
 

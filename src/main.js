@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import App from './App'
+import naviTo from './router'
+import './assets/styles/common.scss'
+
+Vue.prototype.$naviTo = naviTo
 
 Vue.config.productionTip = false
 App.mpType = 'app'
@@ -11,12 +15,13 @@ export default {
   // 这个字段走 app.json
   config: {
     // 页面前带有 ^ 符号的，会被编译成首页，其他页面可以选填，我们会自动把 webpack entry 里面的入口页面加进去
-    pages: ['pages/logs/main', '^pages/index/main'],
+    pages: ['^pages/index/main'],
+    // pages: ['^pages/dateTimePicker/main'],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      navigationBarBackgroundColor: '#6eba94',
+      navigationBarTitleText: 'Broccoli UI',
+      navigationBarTextStyle: 'white'
     }
   }
 }

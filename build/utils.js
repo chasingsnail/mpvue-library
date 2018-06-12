@@ -35,6 +35,10 @@ exports.cssLoaders = function (options) {
     }
   }
 
+  function resolveResouce(name) {
+    return path.resolve(__dirname, '../src/assets/styles/' + name);
+  }
+
   // generate loader string to be used with extract text plugin
   function generateLoaders (loader, loaderOptions) {
     var loaders = [cssLoader, px2rpxLoader, postcssLoader]
@@ -66,7 +70,14 @@ exports.cssLoaders = function (options) {
     postcss: generateLoaders(),
     less: generateLoaders('less'),
     sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass'),
+    scss: generateLoaders('sass').concat({
+      loader: 'sass-resources-loader',
+      options: {
+        resources: [
+          resolveResouce('global.scss')
+        ]
+      }
+    }),
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus')
   }

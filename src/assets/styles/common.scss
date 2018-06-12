@@ -1,0 +1,17 @@
+.comp-wrap {
+  padding: 32rpx;
+  .comp-head {
+    padding: 0 20rpx;
+    .comp-title {
+      margin-bottom: 16rpx;
+      font-size: 36rpx;
+    }
+    .comp-desc {
+      font-size: 28rpx;
+      color: #A7A7A7;
+    }
+  }
+  .comp-cell {
+    margin-top: 38rpx;
+  }
+}

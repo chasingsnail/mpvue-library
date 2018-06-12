@@ -1,17 +1,22 @@
 <template>
   <div class="date-picker" v-if="isShow">
+
     <div class="date-picker_mask"></div>
-    <div class="date-picker_content" :animation="animation">
+
+    <div class="date-picker_content">
+
       <div class="content-operate">
         <a class="btn btn-cancel" @click="close">取消</a>
         <a class="btn btn-confirm" @click="confirm">确认</a>
       </div>
+
       <div class="content-select">
+
         <picker-view
           class="date-picker-content-item"
           indicator-style="height: 90rpx;"
           :value="tempYearPos"
-          @change="yearChange">
+          @change="handleChange('Year', $event)">
           <picker-view-column>
             <view v-for="item in years" :key="item" class="column-itme">{{item}}年</view>
           </picker-view-column>
@@ -21,7 +26,7 @@
           class="date-picker-content-item"
           indicator-style="height: 90rpx; "
           :value="tempMonthPos"
-          @change="monthChange">
+          @change="handleChange('Month', $event)">
           <picker-view-column>
             <view v-for="item in months" :key="item" class="column-itme">{{item}}月</view>
           </picker-view-column>
@@ -56,15 +61,22 @@
             <view v-for="item in mins" :key="item" class="column-itme">{{item}}分</view>
           </picker-view-column>
         </picker-view>
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  const currentDate = new Date()
+
   export default {
     props: {
-      'isShow': Boolean
+      'isShow': Boolean,
+      'startYear': {
+        type: Number,
+        default: currentDate.getFullYear()
+      }
     },
     data () {
       return {
@@ -132,7 +144,7 @@
         this.tempHourPos = [tempHourPos]
         this.tempMinPos = [tempMinPos]
       },
-      yearChange (e) {
+      handleYearChange (e) {
         let days = []
         let curYear = this.years[e.mp.detail.value]
         let curMonth = this.months[this.tempMonthPos]
@@ -144,7 +156,7 @@
           this.tempDayPos = [daySum]
         }
       },
-      monthChange (e) {
+      handleMonthChange (e) {
         let days = []
         let curYear = this.years[this.tempYearPos]
         let curMonth = this.months[e.mp.detail.value]
@@ -157,7 +169,13 @@
         }
       },
       handleChange (key, e) {
-        this[`temp${key}Pos`] = e.mp.detail.value
+        if (key === 'Year') {
+          this.handleYearChange(e)
+        } else if (key === 'Month') {
+          this.handleMonthChange(e)
+        } else {
+          this[`temp${key}Pos`] = e.mp.detail.value
+        }
       },
       count (start, end) {
         let result = []
@@ -168,6 +186,7 @@
       }
     },
     created () {
+      console.log(this.start)
       let date = new Date()
       let days = []
       days = this.getDays(date.getFullYear(), date.getMonth() + 1)
@@ -176,7 +195,7 @@
       this.hours = this.count(0, 23)
       this.mins = this.count(0, 59)
       this.days = days
-      this.getRefreshData()
+      this.getRefreshData() // 获取当前日期时间
       // this.animation = this.animation.export()
     },
     mounted () {
@@ -185,13 +204,14 @@
         timingFunction: 'ease-out'
       })
       this.animation.bottom(0).step()
+    },
+    onShow () {
+      console.log(123)
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  $blue: #0165FF;
-  $borderBlue: rgba(1, 101, 255, .3);
   .date-picker {
     position: fixed;
     top: 0;
@@ -215,7 +235,7 @@
     }
     .date-picker_content {
       position: absolute;
-      bottom: -474rpx;
+      bottom: 0;
       left: 0;
       width: 100%;
       /*height: 474rpx;*/
@@ -228,7 +248,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 3rpx solid $borderBlue;
+        border-bottom: 3rpx solid $green;
         .btn {
           height: 100rpx;
           line-height: 100rpx;
@@ -238,7 +258,7 @@
             color: #353535;
           }
           &.btn-confirm {
-            color: $blue;
+            color: $green;
           }
         }
       }
