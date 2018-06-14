@@ -22,7 +22,11 @@
       </scroll-view>
 
       <div class="chart-wrap">
-        <Chart :chartData="chartData" />
+        <Chart :canvasId="'bar1'" :chartData="chartData" />
+      </div>
+
+      <div class="chart-wrap">
+        <Chart :canvasId="'bar2'" :chartData="chartData" />
       </div>
     </div>
   </div>
@@ -57,12 +61,14 @@
     methods: {
       choose (index) {
         this.date = index
-        _option.series[0].data = [Math.random() * 600, 12, 65, 30, 764, 40, 33]
+        _option.series[0].data = [Math.random() * 100, 12, 65, 30, 76, 40, 33]
         this.chartData = _option
       }
     },
     mounted () {
-      this.chartData = _option
+      setTimeout(() => {
+        this.chartData = _option
+      }, 500)
     }
   }
 </script>
@@ -98,7 +104,7 @@
     }
   }
   .chart-wrap {
-    margin-top: 20rpx;
+    margin-top: 40rpx;
     box-shadow: 0 8px 18px 0 rgba(179,179,179,0.34);
     border-radius: 12rpx;
     border: 2rpx solid $green;
