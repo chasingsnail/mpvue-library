@@ -1,7 +1,7 @@
 <template>
   <div class="date-picker" v-if="isShow">
 
-    <div class="date-picker_mask"></div>
+    <div class="date-picker_mask" @click="close"></div>
 
     <div class="date-picker_content">
 
@@ -18,7 +18,7 @@
           :value="tempYearPos"
           @change="handleChange('Year', $event)">
           <picker-view-column>
-            <view v-for="item in years" :key="item" class="column-itme">{{item}}年</view>
+            <view v-for="item in years" :key="item" style="line-height: 34px">{{item}}年</view>
           </picker-view-column>
         </picker-view>
 
@@ -28,7 +28,7 @@
           :value="tempMonthPos"
           @change="handleChange('Month', $event)">
           <picker-view-column>
-            <view v-for="item in months" :key="item" class="column-itme">{{item}}月</view>
+            <view v-for="item in months" :key="item" style="line-height: 34px">{{item}}月</view>
           </picker-view-column>
         </picker-view>
 
@@ -38,7 +38,7 @@
           :value="tempDayPos"
           @change="handleChange('Day', $event)">
           <picker-view-column>
-            <view v-for="item in days" :key="item" class="column-itme">{{item}}日</view>
+            <view v-for="item in days" :key="item" style="line-height: 34px">{{item}}日</view>
           </picker-view-column>
         </picker-view>
 
@@ -48,7 +48,7 @@
           :value="tempHourPos"
           @change="handleChange('Hour', $event)">
           <picker-view-column>
-            <view v-for="item in hours" :key="item" class="column-itme">{{item}}时</view>
+            <view v-for="item in hours" :key="item" style="line-height: 34px">{{item}}时</view>
           </picker-view-column>
         </picker-view>
 
@@ -58,7 +58,7 @@
           :value="tempMinPos"
           @change="handleChange('Min', $event)">
           <picker-view-column>
-            <view v-for="item in mins" :key="item" class="column-itme">{{item}}分</view>
+            <view v-for="item in mins" :key="item" style="line-height: 34px">{{item}}分</view>
           </picker-view-column>
         </picker-view>
 
@@ -76,6 +76,10 @@
       'startYear': {
         type: Number,
         default: currentDate.getFullYear()
+      },
+      'gap': {
+        type: Number,
+        default: 10
       }
     },
     data () {
@@ -186,11 +190,10 @@
       }
     },
     created () {
-      console.log(this.start)
       let date = new Date()
       let days = []
       days = this.getDays(date.getFullYear(), date.getMonth() + 1)
-      this.years = this.count(date.getFullYear(), date.getFullYear() + 10)
+      this.years = this.count(date.getFullYear(), date.getFullYear() + this.gap)
       this.months = this.count(1, 12)
       this.hours = this.count(0, 23)
       this.mins = this.count(0, 59)

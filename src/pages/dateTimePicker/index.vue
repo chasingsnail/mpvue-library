@@ -3,6 +3,7 @@
     <div class="comp-head">
       <div class="comp-title">dateTimePicker</div>
       <div class="comp-desc">时间日期选择</div>
+      <div class="comp-desc">@param gap:Number 年份跨度</div>
     </div>
 
     <div class="comp-cell">
@@ -11,6 +12,7 @@
 
     <Date-Picker
       :isShow="showPicker"
+      :gap="20"
       @handleConfirm="confirm"
       @handleClose="handleClose"/>
   </div>
@@ -25,7 +27,6 @@
         showPicker: false
       }
     },
-    computed: {},
     components: {
       DatePicker
     },
@@ -36,8 +37,7 @@
       confirm (date) {
         this.date = `${date[0]}/${date[1]}/${date[2]} ${date[3]}:${date[4]}`
       }
-    },
-    created () {}
+    }
   }
 </script>
 

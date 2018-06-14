@@ -66,7 +66,7 @@
       }
     },
     mounted () {
-      setTimeout(() => {
+      setTimeout(() => { // fake异步ajax
         this.chartData = _option
       }, 500)
     }

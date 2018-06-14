@@ -1,6 +1,11 @@
 <template>
   <div class="charts-wrap">
-    <mpvue-echarts :echarts="echarts" lazyLoad :onInit="handleInit" ref="echarts" :canvasId="canvasId" />
+    <mpvue-echarts
+      ref="echarts"
+      :echarts="echarts"
+      lazyLoad
+      :onInit="handleInit"
+      :canvasId="canvasId" />
   </div>
 </template>
 
@@ -9,12 +14,20 @@
   import mpvueEcharts from 'mpvue-echarts'
 
   export default {
-    props: ['chartData', 'canvasId'],
+    props: {
+      'chartData': {
+        type: Object,
+        required: true
+      },
+      'canvasId': {
+        type: String,
+        required: true
+      }
+    },
     data () {
       return {
         echarts,
-        option: null,
-        lazyLoad: true
+        option: null
       }
     },
     watch: {
@@ -25,7 +38,6 @@
         deep: true
       }
     },
-    computed: {},
     components: {
       mpvueEcharts
     },
